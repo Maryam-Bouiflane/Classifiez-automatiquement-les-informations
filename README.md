@@ -10,7 +10,7 @@ L’objectif est d’utiliser les données d'entreprise pour mettre en place un 
 # Instructions d’installation
 1) Installer Poetry si ce n'est pas déjà le cas :
 ```
-pip install poetry
+pip install poetry --no-root
 ```
 
 2) Installer les dépendances & activer l'environnement du projet :
