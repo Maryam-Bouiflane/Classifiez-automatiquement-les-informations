@@ -1,0 +1,23 @@
+# ----------------------------
+# Cache Python
+# ----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ----------------------------
+# Environnements virtuels
+# ----------------------------
+venv/
+env/
+.venv/
+
+# ----------------------------
+# Fichiers générés par pytest / tests
+# ----------------------------
+.pytest_cache/
+.cache/
+*.cover
+coverage.xml
+htmlcov/

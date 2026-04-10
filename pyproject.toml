@@ -17,7 +17,8 @@ dependencies = [
     "shap (>=0.50.0,<0.51.0)",
     "ipykernel (>=7.2.0,<8.0.0)",
     "jupyterlab (>=4.5.4,<5.0.0)",
-    "tqdm (>=4.67.3,<5.0.0)"
+    "tqdm (>=4.67.3,<5.0.0)",
+    "pytest (>=9.0.2,<10.0.0)"
 ]
 
 
@@ -29,3 +30,7 @@ build-backend = "poetry.core.masonry.api"
 dev = [
     "ipykernel (>=7.2.0,<8.0.0)"
 ]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+pytest-cov = "^4.0"
