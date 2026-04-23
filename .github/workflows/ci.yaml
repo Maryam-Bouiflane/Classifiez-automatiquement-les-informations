@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Poetry
         run: pip install poetry
@@ -22,3 +22,10 @@ jobs:
 
       - name: Run tests with coverage
         run: poetry run pytest
+
+      - name: Run training
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+        run: |
+          poetry run python main.py

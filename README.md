@@ -1,26 +1,65 @@
-# Présentation du projet
-## Contexte
-L’ESN TechNova Partners fait face à un turnover anormal de ses salariés. Le département RH souhaite identifier les causes derrière ces démissions, car celles-ci coutent chères à l’entreprise (coûts de recrutements, formations, etc..).
+---
+title: P4 Classification App
+emoji: 🌍
+colorFrom: pink
+colorTo: pink
+sdk: gradio
+sdk_version: 6.11.0
+app_file: app.py
+pinned: false
+---
 
-## Objectifs
-Pour remédier à cette problématique, ce projet est mis en place afin d’identifier des leviers d’actions possible.
-L’objectif est d’utiliser les données d'entreprise pour mettre en place un modèle de classification capable de prédire les salariés à risques, c’est-à-dire ceux qui seraient fortement susceptibles de quitter l’entreprise. 
+# Employee Churn Prediction App
+## Context
+The digital services company TechNova Partners is experiencing unusually high employee turnover. The HR department wants to identify the reasons behind these resignations, as they are costly for the company (recruitment costs, training, etc.).
 
+## Goal
+This app predicts whether an employee is likely to leave the company based on HR data.
 
-# Instructions d’installation
-1) Installer Poetry si ce n'est pas déjà le cas :
-```
-pip install poetry --no-root
-```
+---
 
-2) Installer les dépendances & activer l'environnement du projet :
-Positionnez vous à la racine du projet
-```
-poetry install 
-```
+## 🚀 Features
 
-3) Lancer le notebook ??
-```
-poetry run jupyter notebook
-```
+- Select an employee ID
+- Predict churn probability
+- Get risk classification (low / high)
+
+---
+
+## 🧠 Model
+
+- Logistic Regression (scikit-learn)
+- Feature preprocessing (StandardScaler + OneHotEncoder)
+- Optimized decision threshold (F1-score)
+
+---
+
+## 📊 Inputs
+
+- Age, salary, department, satisfaction scores, etc.
+- HR dataset merged from internal sources
+
+---
+
+## 📤 Output
+
+- Probability of leaving
+- Binary prediction (churn / no churn)
+
+---
+
+## 🛠 Tech Stack
+
+- Python
+- scikit-learn
+- pandas
+- Gradio
+- Hugging Face Spaces
+
+---
+
+## 📦 Deployment
+
+This app is automatically deployed via GitHub Actions CI/CD pipeline.
+
 

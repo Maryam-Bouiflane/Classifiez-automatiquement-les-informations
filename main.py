@@ -1,52 +1,77 @@
-from sklearn.model_selection import train_test_split
-
-import config
+from huggingface_hub import HfApi
+import joblib
+import os
 from src.data_loader import load_data
-from src.data_preprocess import preprocess_data
-from src.build_features import build_features
-from src.model_training import train_model, find_best_threshold
-from src.model_evaluation import evaluate_model
-from src.utils import save_object
+from src.data_process import preprocess_data
+from src.train_model import train_model, find_best_threshold, save_model
+from src.evaluate_model import evaluate_model
+
+def upload_to_hf():
+
+    api = HfApi(token=os.environ["HF_TOKEN"])
+
+    repo_id = "maryamb123/p4-classification-app"
+
+    # upload model
+    api.upload_file(
+        path_or_fileobj="models/model.pkl",
+        path_in_repo="model.pkl",
+        repo_id=repo_id,
+        repo_type="space"
+    )
+
+    # upload threshold
+    api.upload_file(
+        path_or_fileobj="models/threshold.pkl",
+        path_in_repo="threshold.pkl",
+        repo_id=repo_id,
+        repo_type="space"
+    )
 
 def main():
-    # Load
+
+    # ======================
+    # LOAD DATA
+    # ======================
     df_eval, df_sirh, df_sondage = load_data(
-        config.DATA_EVAL_PATH,
-        config.DATA_SIRH_PATH,
-        config.DATA_SONDAGE_PATH
+        "data/raw/extrait_eval.csv",
+        "data/raw/extrait_sirh.csv",
+        "data/raw/extrait_sondage.csv"
     )
 
-    # Preprocess
+    # ======================
+    # PREPROCESS
+    # ======================
     df = preprocess_data(df_eval, df_sirh, df_sondage)
 
-    # Features
-    X, y, encoder = build_features(df)
+    # ======================
+    # TRAIN
+    # ======================
+    model, X_test, y_test = train_model(df)
 
-    # Split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y,
-        test_size=config.TEST_SIZE,
-        random_state=config.RANDOM_STATE,
-        stratify=y
-    )
+    # ======================
+    # THRESHOLD
+    # ======================
+    threshold = find_best_threshold(model, X_test, y_test)
 
-    # Train
-    model = train_model(X_train, y_train, config.PARAM_GRID)
-
-    # Threshold
-    threshold = find_best_threshold(model, X_train, y_train)
-
-    # Evaluate
+    # ======================
+    # EVALUATION
+    # ======================
     metrics = evaluate_model(model, X_test, y_test, threshold)
 
     print("Metrics:", metrics)
-    print("Threshold:", threshold)
+    print(f"Threshold: {threshold:.3f}")
 
-    # Save
-    save_object(model, "model.pkl")
-    save_object(threshold, "threshold.pkl")
-    save_object(encoder, "encoder.pkl")
+    # ======================
+    # V1 SAVE LOCAL
+    # ======================
+    # save_model(model)
+    # joblib.dump(threshold, "models/threshold.pkl")
 
+    # ======================
+    # V2 UPLOAD sur Hugging Face (SAVE)
+    # ======================
+    upload_to_hf()
 
 if __name__ == "__main__":
     main()

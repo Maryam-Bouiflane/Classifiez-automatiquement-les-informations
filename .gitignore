@@ -1,22 +1,70 @@
-# ----------------------------
-# Cache Python
-# ----------------------------
+# ======================
+# Python
+# ======================
 __pycache__/
 *.py[cod]
+*.pyc
 *.pyo
 *.pyd
+*.so
+*.egg-info/
+dist/
+build/
 
-# ----------------------------
-# Environnements virtuels
-# ----------------------------
+# ======================
+# Virtual env
+# ======================
+.venv/
 venv/
 env/
-.venv/
 
-# ----------------------------
-# Fichiers générés par pytest / tests
-# ----------------------------
+# ======================
+# Jupyter
+# ======================
+.ipynb_checkpoints/
+
+# ======================
+# Data (RAW & GENERATED)
+# ======================
+# data/raw/*
+# data/processed/*
+# !data/raw/.gitkeep
+# !data/processed/.gitkeep
+
+# ======================
+# Models
+# ======================
+# models/*.pkl
+# models/*.joblib
+
+# ======================
+# Logs
+# ======================
+logs/
+*.log
+
+# ======================
+# Env variables
+# ======================
+.env
+
+# ======================
+# OS
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# IDE
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Test cache
+# ======================
 .pytest_cache/
+.coverage
 .cache/
 *.cover
 coverage.xml
