@@ -9,23 +9,29 @@ from huggingface_hub import hf_hub_download
 repo_id="maryamb123/p4-classification-app"
 model_path = hf_hub_download(
     repo_id=repo_id,
-    filename="model.pkl",
+    filename="models/model.pkl",
     repo_type="space"
 )
 threshold_path = hf_hub_download(
     repo_id=repo_id,
-    filename="threshold.pkl",
+    filename="models/threshold.pkl",
+    repo_type="space"
+)
+dataset_path = hf_hub_download(
+    repo_id=repo_id,
+    filename="data/final_dataset.csv",
     repo_type="space"
 )
 model = joblib.load(model_path)
 threshold = joblib.load(threshold_path)
+df = pd.read_csv(dataset_path)
 
 # V1 locale
 # model = joblib.load("models/model.pkl")
 # threshold = joblib.load("models/threshold.pkl")
 
 # dataset utilisé pour prédire
-df = pd.read_csv("clean/final_dataset.csv")  # adapte le chemin
+# df = pd.read_csv("data/final_dataset.csv") 
 
 # ======================
 # GET IDS

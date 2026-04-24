@@ -3,7 +3,7 @@ import joblib
 import os
 from src.data_loader import load_data
 from src.data_process import preprocess_data
-from src.train_model import train_model, find_best_threshold, save_model
+from src.train_model import train_model, find_best_threshold
 from src.evaluate_model import evaluate_model
 
 def upload_to_hf():
@@ -15,7 +15,7 @@ def upload_to_hf():
     # upload model
     api.upload_file(
         path_or_fileobj="models/model.pkl",
-        path_in_repo="model.pkl",
+        path_in_repo="models/model.pkl",
         repo_id=repo_id,
         repo_type="space"
     )
@@ -23,7 +23,7 @@ def upload_to_hf():
     # upload threshold
     api.upload_file(
         path_or_fileobj="models/threshold.pkl",
-        path_in_repo="threshold.pkl",
+        path_in_repo="models/threshold.pkl",
         repo_id=repo_id,
         repo_type="space"
     )
@@ -58,20 +58,21 @@ def main():
     # EVALUATION
     # ======================
     metrics = evaluate_model(model, X_test, y_test, threshold)
-
+    
+    print("RESULTS ON TEST SET:")
     print("Metrics:", metrics)
     print(f"Threshold: {threshold:.3f}")
 
     # ======================
-    # V1 SAVE LOCAL
+    # SAVE LOCAL
     # ======================
-    # save_model(model)
-    # joblib.dump(threshold, "models/threshold.pkl")
+    joblib.dump(model, "models/model.pkl")
+    joblib.dump(threshold, "models/threshold.pkl")
 
     # ======================
-    # V2 UPLOAD sur Hugging Face (SAVE)
+    # UPLOAD sur Hugging Face
     # ======================
-    upload_to_hf()
+    # upload_to_hf()
 
 if __name__ == "__main__":
     main()
