@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  test-and-train:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,12 +20,27 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      - name: Run tests with coverage
+      - name: Run tests
         run: poetry run pytest
 
+      # Clean ancien modèle + threshold
+      - name: Clean old artifacts
+        run: rm -rf models
+
+      # Training → doit créer model.pkl + threshold.pkl
       - name: Run training
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+        run: poetry run python main.py
+
+      # Sécurité : vérifier que les fichiers existent
+      - name: Check artifacts
         run: |
-          poetry run python main.py
+          ls -R models
+          test -f models/model.pkl
+          test -f models/threshold.pkl
+
+      # Upload pour CD
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ml-artifacts
+          path: models/

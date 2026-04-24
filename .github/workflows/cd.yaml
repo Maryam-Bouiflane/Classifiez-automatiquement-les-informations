@@ -2,7 +2,7 @@ name: CD Pipeline (to Hugging Face Space)
 
 on:
   workflow_run:
-    workflows: ["CI Pipeline"]  
+    workflows: ["CI Pipeline"]
     types:
       - completed
 
@@ -15,14 +15,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Git LFS
+      # 1. créer deploy folder AVANT download
+      - name: Prepare deploy folder
         run: |
-          git lfs install
-      
+          mkdir -p deploy/models
+          mkdir -p deploy/data
+
+      # 2. download directement dans deploy/models
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ml-artifacts
+          path: deploy/models/
+
+      - name: Install Git LFS
+        run: git lfs install
+
+      # 3. ajouter fichiers app
       - name: Build deploy folder
         run: |
-          mkdir -p deploy
-
           cp app.py deploy/
           cp requirements.txt deploy/
           cp README.md deploy/
@@ -30,9 +41,9 @@ jobs:
           cp .gitignore deploy/
           cp Dockerfile deploy/
 
-          cp -r models deploy/
           cp -r data/clean deploy/data
 
+      # 4. deploy HF
       - name: Deploy to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
