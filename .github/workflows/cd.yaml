@@ -28,7 +28,6 @@ jobs:
           cp README.md deploy/
           cp .gitattributes deploy/
           cp .gitignore deploy/
-          cp runtime.txt deploy/
           cp Dockerfile deploy/
 
           cp -r models deploy/
@@ -45,7 +44,7 @@ jobs:
 
           git clone https://maryamb123:${HF_TOKEN}@huggingface.co/spaces/maryamb123/p4-classification-app hf-space
 
-          rsync -av deploy/ hf-space/ --exclude .git
+          rsync -av --delete deploy/ hf-space/ --exclude .git
 
           cd hf-space
           git add .
