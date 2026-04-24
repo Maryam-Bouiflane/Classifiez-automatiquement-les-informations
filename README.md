@@ -3,7 +3,7 @@ title: P4 Classification App
 emoji: 🌍
 colorFrom: pink
 colorTo: pink
-sdk: gradio
+sdk: docker
 sdk_version: 6.11.0
 app_file: app.py
 pinned: false

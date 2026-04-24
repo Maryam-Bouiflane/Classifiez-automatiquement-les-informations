@@ -29,6 +29,7 @@ jobs:
           cp .gitattributes deploy/
           cp .gitignore deploy/
           cp runtime.txt deploy/
+          cp Dockerfile deploy/
 
           cp -r models deploy/
           cp -r data/clean deploy/data
