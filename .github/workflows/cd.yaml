@@ -44,7 +44,7 @@ jobs:
 
           git clone https://maryamb123:${HF_TOKEN}@huggingface.co/spaces/maryamb123/p4-classification-app hf-space
 
-          rsync -av --delete deploy/ hf-space/ --exclude .git
+          rsync -av --delete --exclude .git deploy/ hf-space/
 
           cd hf-space
           git add .
