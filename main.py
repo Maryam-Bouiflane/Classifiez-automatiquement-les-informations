@@ -66,6 +66,7 @@ def main():
     # ======================
     # SAVE LOCAL
     # ======================
+    os.makedirs("models", exist_ok=True)
     joblib.dump(model, "models/model.pkl")
     joblib.dump(threshold, "models/threshold.pkl")
 
