@@ -28,6 +28,7 @@ jobs:
           cp README.md deploy/
           cp .gitattributes deploy/
           cp .gitignore deploy/
+          cp runtime.txt deploy/
 
           cp -r models deploy/
           cp -r data/clean deploy/data
