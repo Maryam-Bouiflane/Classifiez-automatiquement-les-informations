@@ -4,16 +4,16 @@ emoji: 🌍
 colorFrom: pink
 colorTo: pink
 sdk: gradio
-sdk_version: 6.11.0
+sdk_version: 6.13.0
 app_file: app.py
 pinned: false
 ---
 
 # Employee Churn Prediction App
-## Context
+### 1) Context
 The digital services company TechNova Partners is experiencing unusually high employee turnover. The HR department wants to identify the reasons behind these resignations, as they are costly for the company (recruitment costs, training, etc.).
 
-## Goal
+### 2) Goal
 This app predicts whether an employee is likely to leave the company based on HR data.
 
 ---

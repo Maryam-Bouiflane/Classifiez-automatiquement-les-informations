@@ -26,9 +26,11 @@ jobs:
           cp app.py deploy/
           cp requirements.txt deploy/
           cp README.md deploy/
+          cp .gitattributes deploy/
+          cp .gitignore deploy/
 
           cp -r models deploy/
-          cp -r data/clean deploy/
+          cp -r data/clean deploy/data
 
       - name: Deploy to Hugging Face Space
         env:
@@ -36,6 +38,8 @@ jobs:
         run: |
           git config --global user.email "bouiflanemaryam@outlook.fr"
           git config --global user.name "Maryam-Bouiflane"
+
+          rm -rf hf-space
 
           git clone https://maryamb123:${HF_TOKEN}@huggingface.co/spaces/maryamb123/p4-classification-app hf-space
 

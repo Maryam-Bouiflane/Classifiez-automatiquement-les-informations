@@ -128,10 +128,3 @@ def find_best_threshold(model, X, y):
     best_threshold = thresholds[np.argmax(f1_scores[:-1])]
 
     return best_threshold
-
-
-# ======================
-# SAVE MODEL
-# ======================
-def save_model(model, path="models/model.pkl"):
-    joblib.dump(model, path)

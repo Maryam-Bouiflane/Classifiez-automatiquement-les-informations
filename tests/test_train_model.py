@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 import os
 
-from src.train_model import train_model, find_best_threshold, save_model
+from src.train_model import train_model, find_best_threshold
 
 
 # ======================
@@ -89,23 +89,8 @@ def test_threshold_produces_predictions(sample_training_data):
 
     assert len(preds) == len(y_test)
 
-
 # ======================
-# TEST 6: sauvegarde modèle
-# ======================
-def test_save_model(tmp_path, sample_training_data):
-
-    model, _, _ = train_model(sample_training_data, test_mode=True)
-
-    path = tmp_path / "model.pkl"
-
-    save_model(model, path)
-
-    assert os.path.exists(path)
-
-
-# ======================
-# Test 7 : vérifie que le modèle génère des prédictions valides (non vide)
+# Test 6 : vérifie que le modèle génère des prédictions valides (non vide)
 # ======================
 def test_model_outputs_predictions(sample_training_data):
 
