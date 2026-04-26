@@ -9,7 +9,7 @@ df = pd.read_csv("data/final_dataset.csv")
 # ======================
 # GET IDS
 # ======================
-employee_ids = df["id_employee"].astype(str).tolist()
+employee_ids = df["id_employee"].sort_values().astype(str).tolist()
 
 # ======================
 # PREDICT FROM ID
@@ -47,7 +47,8 @@ demo = gr.Interface(
         gr.Number(label="Probability"),
         gr.Text(label="Advice")
     ],
-    title="Employee Attrition Prediction (by ID)"
+    title="Employee Attrition Prediction (by ID)",
+    allow_flagging="never"
 )
 
 demo.launch(server_name="0.0.0.0", server_port=7860)
