@@ -1,49 +1,69 @@
-name: CD Pipeline (to Hugging Face Space)
+name: CI-CD Pipeline
 
 on:
-  workflow_run:
-    workflows: ["CI Pipeline"]
-    types:
-      - completed
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  test-and-train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1. créer deploy folder AVANT download
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Run tests
+        run: poetry run pytest
+
+      - name: Clean old artifacts
+        run: rm -rf models
+
+      - name: Run training (creates model + threshold)
+        run: poetry run python main.py
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ml-artifacts
+          path: models/
+
+  deploy:
+    needs: test-and-train
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Prepare deploy folder
         run: |
           mkdir -p deploy/models
           mkdir -p deploy/data
 
-      # 2. download directement dans deploy/models
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: ml-artifacts
           path: deploy/models/
 
-      - name: Install Git LFS
-        run: git lfs install
-
-      # 3. ajouter fichiers app
       - name: Build deploy folder
         run: |
           cp app.py deploy/
           cp requirements.txt deploy/
           cp README.md deploy/
-          cp .gitattributes deploy/
-          cp .gitignore deploy/
           cp Dockerfile deploy/
-
+          cp .gitignore deploy/
+          cp .gitattributes deploy/
           cp -r data/clean deploy/data
 
-      # 4. deploy HF
       - name: Deploy to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
