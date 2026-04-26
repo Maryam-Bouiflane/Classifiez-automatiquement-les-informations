@@ -39,6 +39,7 @@ jobs:
 
       - name: Build deploy folder
         run: |
+          mkdir deploy
           mkdir -p deploy/data
           mkdir -p deploy/models
 
