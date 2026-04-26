@@ -62,7 +62,7 @@ jobs:
           cp Dockerfile deploy/
           cp .gitignore deploy/
           cp .gitattributes deploy/
-          cp -r data/clean deploy/data
+          cp -r data/clean/* deploy/data
 
       - name: Deploy to Hugging Face Space
         env:

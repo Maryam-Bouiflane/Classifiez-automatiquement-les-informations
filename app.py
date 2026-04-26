@@ -1,37 +1,35 @@
 import gradio as gr
 import pandas as pd
 import joblib
-from huggingface_hub import hf_hub_download
+# from huggingface_hub import hf_hub_download
 
 # ======================
 # LOAD MODEL + DATA (V2 : depuis Hugging Face)
 # ======================
-repo_id="maryamb123/p4-classification-app"
-model_path = hf_hub_download(
-    repo_id=repo_id,
-    filename="models/model.pkl",
-    repo_type="space"
-)
-threshold_path = hf_hub_download(
-    repo_id=repo_id,
-    filename="models/threshold.pkl",
-    repo_type="space"
-)
-dataset_path = hf_hub_download(
-    repo_id=repo_id,
-    filename="data/final_dataset.csv",
-    repo_type="space"
-)
-model = joblib.load(model_path)
-threshold = joblib.load(threshold_path)
-df = pd.read_csv(dataset_path)
+# repo_id="maryamb123/p4-classification-app"
+# model_path = hf_hub_download(
+#     repo_id=repo_id,
+#     filename="models/model.pkl",
+#     repo_type="space"
+# )
+# threshold_path = hf_hub_download(
+#     repo_id=repo_id,
+#     filename="models/threshold.pkl",
+#     repo_type="space"
+# )
+# dataset_path = hf_hub_download(
+#     repo_id=repo_id,
+#     filename="data/final_dataset.csv",
+#     repo_type="space"
+# )
+# model = joblib.load(model_path)
+# threshold = joblib.load(threshold_path)
+# df = pd.read_csv(dataset_path)
 
 # V1 locale
-# model = joblib.load("models/model.pkl")
-# threshold = joblib.load("models/threshold.pkl")
-
-# dataset utilisé pour prédire
-# df = pd.read_csv("data/final_dataset.csv") 
+model = joblib.load("models/model.pkl")
+threshold = joblib.load("models/threshold.pkl")
+df = pd.read_csv("data/final_dataset.csv") 
 
 # ======================
 # GET IDS
