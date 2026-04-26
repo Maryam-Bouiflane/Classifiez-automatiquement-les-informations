@@ -39,7 +39,8 @@ jobs:
 
       - name: Build deploy folder
         run: |
-          mkdir -p deploy
+          mkdir -p deploy/data
+          mkdir -p deploy/models
 
           cp app.py deploy/
           cp requirements.txt deploy/
@@ -47,8 +48,8 @@ jobs:
           cp Dockerfile deploy/
           cp .gitignore deploy/
           cp .gitattributes deploy/
-          cp -r data/clean/* deploy/data
-          cp -r data/models deploy/
+          cp -r data/clean/. deploy/data
+          cp -r models deploy/
 
       - name: Deploy to Hugging Face Space
         env:
