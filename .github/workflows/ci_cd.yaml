@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test-and-train:
+  test-train-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,14 +28,6 @@ jobs:
 
       - name: Run training (creates model + threshold)
         run: poetry run python main.py
-
-  deploy:
-    needs: test-and-train
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Build deploy folder
         run: |

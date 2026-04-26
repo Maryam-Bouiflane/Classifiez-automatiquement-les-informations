@@ -69,6 +69,7 @@ def main():
     os.makedirs("models", exist_ok=True)
     joblib.dump(model, "models/model.pkl")
     joblib.dump(threshold, "models/threshold.pkl")
+    print("Model and threshold saved in 'models/' directory.")
 
     # ======================
     # UPLOAD sur Hugging Face
