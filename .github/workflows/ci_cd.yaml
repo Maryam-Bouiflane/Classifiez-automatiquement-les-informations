@@ -23,17 +23,11 @@ jobs:
       - name: Run tests
         run: poetry run pytest
 
-      - name: Clean old artifacts
+      - name: Clean old models
         run: rm -rf models
 
       - name: Run training (creates model + threshold)
         run: poetry run python main.py
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ml-artifacts
-          path: models/
 
   deploy:
     needs: test-and-train
@@ -43,19 +37,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare deploy folder
-        run: |
-          mkdir -p deploy/models
-          mkdir -p deploy/data
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: ml-artifacts
-          path: deploy/models/
-
       - name: Build deploy folder
         run: |
+          mkdir -p deploy
+
           cp app.py deploy/
           cp requirements.txt deploy/
           cp README.md deploy/
@@ -63,6 +48,7 @@ jobs:
           cp .gitignore deploy/
           cp .gitattributes deploy/
           cp -r data/clean/* deploy/data
+          cp -r data/models deploy/
 
       - name: Deploy to Hugging Face Space
         env:
