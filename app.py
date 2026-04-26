@@ -4,12 +4,13 @@ import joblib
 
 model = joblib.load("models/model.pkl")
 threshold = joblib.load("models/threshold.pkl")
-df = pd.read_csv("data/final_dataset.csv") 
+df = pd.read_csv("data/final_dataset.csv")
+df =df.sort_values(by="id_employee").reset_index(drop=True)
 
 # ======================
 # GET IDS
 # ======================
-employee_ids = df["id_employee"].sort_values().astype(str).tolist()
+employee_ids = df["id_employee"].astype(str).tolist()
 
 # ======================
 # PREDICT FROM ID
@@ -48,7 +49,8 @@ demo = gr.Interface(
         gr.Text(label="Advice")
     ],
     title="Employee Attrition Prediction (by ID)",
-    allow_flagging="never"
+    allow_flagging="never",
+    flagging_mode="never"
 )
 
 demo.launch(server_name="0.0.0.0", server_port=7860)
