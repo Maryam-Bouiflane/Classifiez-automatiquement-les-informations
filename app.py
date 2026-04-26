@@ -48,9 +48,7 @@ demo = gr.Interface(
         gr.Number(label="Probability"),
         gr.Text(label="Advice")
     ],
-    title="Employee Attrition Prediction (by ID)",
-    allow_flagging="never",
-    flagging_mode="never"
+    title="Employee Attrition Prediction (by ID)"
 )
 
 demo.launch(server_name="0.0.0.0", server_port=7860)
