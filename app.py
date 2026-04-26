@@ -1,32 +1,7 @@
 import gradio as gr
 import pandas as pd
 import joblib
-# from huggingface_hub import hf_hub_download
 
-# ======================
-# LOAD MODEL + DATA (V2 : depuis Hugging Face)
-# ======================
-# repo_id="maryamb123/p4-classification-app"
-# model_path = hf_hub_download(
-#     repo_id=repo_id,
-#     filename="models/model.pkl",
-#     repo_type="space"
-# )
-# threshold_path = hf_hub_download(
-#     repo_id=repo_id,
-#     filename="models/threshold.pkl",
-#     repo_type="space"
-# )
-# dataset_path = hf_hub_download(
-#     repo_id=repo_id,
-#     filename="data/final_dataset.csv",
-#     repo_type="space"
-# )
-# model = joblib.load(model_path)
-# threshold = joblib.load(threshold_path)
-# df = pd.read_csv(dataset_path)
-
-# V1 locale
 model = joblib.load("models/model.pkl")
 threshold = joblib.load("models/threshold.pkl")
 df = pd.read_csv("data/final_dataset.csv") 
@@ -64,7 +39,7 @@ def predict_from_id(employee_id):
 # ======================
 # UI
 # ======================
-gr.Interface(
+demo = gr.Interface(
     fn=predict_from_id,
     inputs=gr.Dropdown(employee_ids, label="Select Employee ID"),
     outputs=[
@@ -73,4 +48,6 @@ gr.Interface(
         gr.Text(label="Advice")
     ],
     title="Employee Attrition Prediction (by ID)"
-).launch()
+)
+
+demo.launch(server_name="0.0.0.0", server_port=7860)
