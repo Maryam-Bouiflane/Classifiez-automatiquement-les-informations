@@ -9,6 +9,8 @@ on:
 jobs:
   test-train-deploy:
     runs-on: ubuntu-latest
+    # permissions:
+    #   contents: write
 
     steps:
       - name: Checkout repository
@@ -29,16 +31,16 @@ jobs:
       - name: Run training (creates model + threshold)
         run: poetry run python main.py
 
-      - name: Commit trained models to GitHub
-        run: |
-          git config --global user.email "bouiflanemaryam@outlook.fr"
-          git config --global user.name "Maryam-Bouiflane"
+      # - name: Commit trained model to GitHub
+      #   run: |
+      #     git config --global user.email "bouiflanemaryam@outlook.fr"
+      #     git config --global user.name "Maryam-Bouiflane"
 
-          git add models/
+      #     git add models/
 
-          git commit -m "Update trained model and threshold" || echo "No changes to commit"
+      #     git commit -m "Update trained model and threshold" || echo "No changes to commit"
 
-          git push
+      #     git push origin main
 
       - name: Build deploy folder
         run: |
