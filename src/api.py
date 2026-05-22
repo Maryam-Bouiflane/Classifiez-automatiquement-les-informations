@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.schemas import EmployeeData
+from schemas import EmployeeData
 
 import joblib
 import pandas as pd
@@ -8,8 +8,8 @@ import pandas as pd
 # LOAD MODEL
 # ======================
 
-model = joblib.load("models/model.pkl")
-threshold = joblib.load("models/threshold.pkl")
+model = joblib.load("../models/model.pkl")
+threshold = joblib.load("../models/threshold.pkl")
 
 # ======================
 # FASTAPI
