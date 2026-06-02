@@ -6,7 +6,7 @@ authors = [
     {name = "BOUIFLANE Maryam"}
 ]
 readme = "README.md"
-requires-python = ">=3.12,<3.14"
+requires-python = ">=3.10,<3.14"
 dependencies = [
     "pandas (==2.2.2)",
     "numpy (==1.26.4)",
