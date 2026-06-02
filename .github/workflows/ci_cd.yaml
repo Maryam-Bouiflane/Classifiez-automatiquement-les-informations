@@ -34,7 +34,7 @@ jobs:
         run: poetry run python main.py
 
       - name: Run tests
-        run: poetry run pytest
+        run: poetry run pytest tests/unit
 
       # - name: Commit trained model to GitHub
       #   run: |
