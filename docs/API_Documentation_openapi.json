@@ -1,0 +1,365 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Churn Prediction API",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Root",
+                "operationId": "root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "summary": "Health",
+                "operationId": "health_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/predict": {
+            "post": {
+                "summary": "Predict",
+                "operationId": "predict_predict_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmployeeData"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/{id}": {
+            "get": {
+                "summary": "Get Employee",
+                "operationId": "get_employee_employee__id__get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "description": "ID of the employee to retrieve",
+                            "title": "Id"
+                        },
+                        "description": "ID of the employee to retrieve"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "EmployeeData": {
+                "properties": {
+                    "id_employee": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Id Employee"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "exclusiveMaximum": 80.0,
+                        "minimum": 18.0,
+                        "title": "Age"
+                    },
+                    "genre": {
+                        "type": "string",
+                        "enum": [
+                            "F",
+                            "M"
+                        ],
+                        "title": "Genre"
+                    },
+                    "statut_marital": {
+                        "type": "string",
+                        "enum": [
+                            "Célibataire",
+                            "Marié",
+                            "Marié(e)",
+                            "Divorcé",
+                            "Divorcé(e)"
+                        ],
+                        "title": "Statut Marital"
+                    },
+                    "departement": {
+                        "type": "string",
+                        "title": "Departement"
+                    },
+                    "poste": {
+                        "type": "string",
+                        "title": "Poste"
+                    },
+                    "nombre_experiences_precedentes": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0.0,
+                        "title": "Nombre Experiences Precedentes"
+                    },
+                    "annee_experience_totale": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0.0,
+                        "title": "Annee Experience Totale"
+                    },
+                    "annees_dans_l_entreprise": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0.0,
+                        "title": "Annees Dans L Entreprise"
+                    },
+                    "annees_dans_le_poste_actuel": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0.0,
+                        "title": "Annees Dans Le Poste Actuel"
+                    },
+                    "satisfaction_employee_environnement": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Satisfaction Employee Environnement"
+                    },
+                    "note_evaluation_precedente": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Note Evaluation Precedente"
+                    },
+                    "satisfaction_employee_nature_travail": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Satisfaction Employee Nature Travail"
+                    },
+                    "satisfaction_employee_equipe": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Satisfaction Employee Equipe"
+                    },
+                    "satisfaction_employee_equilibre_pro_perso": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Satisfaction Employee Equilibre Pro Perso"
+                    },
+                    "note_evaluation_actuelle": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 0.0,
+                        "title": "Note Evaluation Actuelle"
+                    },
+                    "heure_supplementaires": {
+                        "type": "string",
+                        "enum": [
+                            "Oui",
+                            "Non"
+                        ],
+                        "title": "Heure Supplementaires"
+                    },
+                    "augementation_salaire_precedente": {
+                        "type": "number",
+                        "maximum": 100.0,
+                        "minimum": 0.0,
+                        "title": "Augementation Salaire Precedente"
+                    },
+                    "nombre_participation_pee": {
+                        "type": "integer",
+                        "maximum": 70.0,
+                        "minimum": 0.0,
+                        "title": "Nombre Participation Pee"
+                    },
+                    "nb_formations_suivies": {
+                        "type": "integer",
+                        "minimum": 0.0,
+                        "title": "Nb Formations Suivies"
+                    },
+                    "distance_domicile_travail": {
+                        "type": "integer",
+                        "exclusiveMinimum": 0.0,
+                        "title": "Distance Domicile Travail"
+                    },
+                    "niveau_education": {
+                        "type": "integer",
+                        "maximum": 5.0,
+                        "minimum": 1.0,
+                        "title": "Niveau Education"
+                    },
+                    "domaine_etude": {
+                        "type": "string",
+                        "title": "Domaine Etude"
+                    },
+                    "frequence_deplacement": {
+                        "type": "string",
+                        "enum": [
+                            "Aucun",
+                            "Frequent",
+                            "Occasionnel"
+                        ],
+                        "title": "Frequence Deplacement"
+                    },
+                    "annees_depuis_la_derniere_promotion": {
+                        "type": "integer",
+                        "minimum": 0.0,
+                        "title": "Annees Depuis La Derniere Promotion"
+                    },
+                    "annes_sous_responsable_actuel": {
+                        "type": "integer",
+                        "minimum": 0.0,
+                        "title": "Annes Sous Responsable Actuel"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "age",
+                    "genre",
+                    "statut_marital",
+                    "departement",
+                    "poste",
+                    "nombre_experiences_precedentes",
+                    "annee_experience_totale",
+                    "annees_dans_l_entreprise",
+                    "annees_dans_le_poste_actuel",
+                    "satisfaction_employee_environnement",
+                    "note_evaluation_precedente",
+                    "satisfaction_employee_nature_travail",
+                    "satisfaction_employee_equipe",
+                    "satisfaction_employee_equilibre_pro_perso",
+                    "note_evaluation_actuelle",
+                    "heure_supplementaires",
+                    "augementation_salaire_precedente",
+                    "nombre_participation_pee",
+                    "nb_formations_suivies",
+                    "distance_domicile_travail",
+                    "niveau_education",
+                    "domaine_etude",
+                    "frequence_deplacement",
+                    "annees_depuis_la_derniere_promotion",
+                    "annes_sous_responsable_actuel"
+                ],
+                "title": "EmployeeData"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    },
+                    "input": {
+                        "title": "Input"
+                    },
+                    "ctx": {
+                        "type": "object",
+                        "title": "Context"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

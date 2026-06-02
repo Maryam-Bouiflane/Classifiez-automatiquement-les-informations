@@ -6,27 +6,27 @@ from src.data_process import preprocess_data
 from src.train_model import train_model, find_best_threshold
 from src.evaluate_model import evaluate_model
 
-def upload_to_hf():
+# def upload_to_hf():
 
-    api = HfApi(token=os.environ["HF_TOKEN"])
+#     api = HfApi(token=os.environ["HF_TOKEN"])
 
-    repo_id = "maryamb123/p4-classification-app"
+#     repo_id = "maryamb123/p4-classification-app"
 
-    # upload model
-    api.upload_file(
-        path_or_fileobj="models/model.pkl",
-        path_in_repo="models/model.pkl",
-        repo_id=repo_id,
-        repo_type="space"
-    )
+#     # upload model
+#     api.upload_file(
+#         path_or_fileobj="models/model.pkl",
+#         path_in_repo="models/model.pkl",
+#         repo_id=repo_id,
+#         repo_type="space"
+#     )
 
-    # upload threshold
-    api.upload_file(
-        path_or_fileobj="models/threshold.pkl",
-        path_in_repo="models/threshold.pkl",
-        repo_id=repo_id,
-        repo_type="space"
-    )
+#     # upload threshold
+#     api.upload_file(
+#         path_or_fileobj="models/threshold.pkl",
+#         path_in_repo="models/threshold.pkl",
+#         repo_id=repo_id,
+#         repo_type="space"
+#     )
 
 def main():
 

@@ -2,10 +2,9 @@ from pydantic import BaseModel, Field, PositiveInt
 from typing import Literal
 
 class EmployeeData(BaseModel):
-
+    id_employee : int | None = None
     age : int = Field(ge=18, lt=80)
     genre : Literal["F", "M"]
-    revenu_mensuel : PositiveInt
     statut_marital : Literal["Célibataire", "Marié", "Marié(e)", "Divorcé", "Divorcé(e)"]
     departement : str
     poste : str
@@ -15,7 +14,6 @@ class EmployeeData(BaseModel):
     annees_dans_le_poste_actuel : PositiveInt
     satisfaction_employee_environnement : int = Field(ge=0, le=5)
     note_evaluation_precedente : int = Field(ge=0, le=5)
-    niveau_hierarchique_poste : int = Field(ge=1, le=5)
     satisfaction_employee_nature_travail : int = Field(ge=0, le=5)
     satisfaction_employee_equipe : int = Field(ge=0, le=5)
     satisfaction_employee_equilibre_pro_perso : int = Field(ge=0, le=5)
