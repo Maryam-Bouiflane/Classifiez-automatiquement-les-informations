@@ -2,17 +2,17 @@ import pandas as pd
 from huggingface_hub import HfApi
 import os
 
-def upload_dataset_to_hf():
+# def upload_dataset_to_hf():
 
-    api = HfApi(token=os.environ["HF_TOKEN"])
+#     api = HfApi(token=os.environ["HF_TOKEN"])
 
-    # upload dataset
-    api.upload_file(
-        path_or_fileobj="data/clean/final_dataset.csv",
-        path_in_repo="data/final_dataset.csv",
-        repo_id="maryamb123/p4-classification-app",
-        repo_type="space"
-    )
+#     # upload dataset
+#     api.upload_file(
+#         path_or_fileobj="data/clean/final_dataset.csv",
+#         path_in_repo="data/final_dataset.csv",
+#         repo_id="maryamb123/p4-classification-app",
+#         repo_type="space"
+#     )
 
 def preprocess_data(df_eval, df_sirh, df_sondage):
 
