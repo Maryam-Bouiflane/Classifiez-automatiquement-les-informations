@@ -38,15 +38,11 @@ def main():
         "data/raw/extrait_sirh.csv",
         "data/raw/extrait_sondage.csv"
     )
-    print("df_eval :", df_eval.shape)
-    print("df_sirh :", df_sirh.shape)
-    print("df_sondage :", df_sondage.shape)
 
     # ======================
     # PREPROCESS
     # ======================
     df = preprocess_data(df_eval, df_sirh, df_sondage)
-    print("df final :", df.shape)
     # ======================
     # TRAIN
     # ======================
