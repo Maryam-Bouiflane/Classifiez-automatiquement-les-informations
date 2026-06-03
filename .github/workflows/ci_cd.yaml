@@ -9,17 +9,10 @@ on:
 jobs:
   test-train-deploy:
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: "3.10"
 
       - name: Install Poetry
         run: pip install poetry
@@ -32,30 +25,9 @@ jobs:
 
       - name: Run training (creates model + threshold)
         run: poetry run python main.py
-      
-      - name: Check dataset after training
-        run: |
-          wc -l data/clean/final_dataset.csv
-          head -5 data/clean/final_dataset.csv
 
       - name: Run tests
         run: poetry run pytest tests/unit
-
-      - name: Check dataset after tests
-        run: |
-          wc -l data/clean/final_dataset.csv
-          head -5 data/clean/final_dataset.csv
-
-      # - name: Commit trained model to GitHub
-      #   run: |
-      #     git config --global user.email "bouiflanemaryam@outlook.fr"
-      #     git config --global user.name "Maryam-Bouiflane"
-
-      #     git add models/
-
-      #     git commit -m "Update trained model and threshold" || echo "No changes to commit"
-
-      #     git push origin main
 
       - name: Build deploy folder
         run: |
