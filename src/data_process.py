@@ -45,8 +45,10 @@ def preprocess_data(df_eval, df_sirh, df_sondage):
 
     df = df.drop(columns=["eval_number", "code_sondage", "niveau_hierarchique_poste", "revenu_mensuel"], errors='ignore')
     
-    # Sauvegarde du dataset final
-    df.to_csv("data/clean/final_dataset.csv", index=False)  # Sauvegarde locale du dataset final
-    # upload_dataset_to_hf()
-    
     return df
+
+def save_preprocessed_data(df, path="data/clean/final_dataset.csv"):
+    
+    # Sauvegarde du dataset final
+    df.to_csv(path, index=False)  # Sauvegarde locale du dataset final
+    # upload_dataset_to_hf()

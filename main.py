@@ -2,7 +2,7 @@ from huggingface_hub import HfApi
 import joblib
 import os
 from src.data_loader import load_data
-from src.data_process import preprocess_data
+from src.data_process import preprocess_data, save_preprocessed_data
 from src.train_model import train_model, find_best_threshold
 from src.evaluate_model import evaluate_model
 
@@ -43,6 +43,7 @@ def main():
     # PREPROCESS
     # ======================
     df = preprocess_data(df_eval, df_sirh, df_sondage)
+    save_preprocessed_data(df)
     # ======================
     # TRAIN
     # ======================
